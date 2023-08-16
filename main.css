@@ -1,0 +1,115 @@
+body {
+    margin: 0;
+    background-color: #4a5933;
+
+    font: 16px/24px "PT Serif", Georgia, serif;
+    
+    /* font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    font-size: 12px;
+    overflow-x: hidden; */
+}
+
+#header {
+    max-width: calc(1080px - (2 * 96px));
+    height: 140px;
+    margin: auto;
+    padding: 12px 96px;
+
+    background-color: rgba(255.0,255.0,255.0,1.0);
+    
+}
+#header > h1 {
+    margin-top: 72px;
+}
+
+#content {
+    z-index: 10;
+
+    max-width: calc(1080px - (2 * 96px));
+    min-height: calc(100vh - 24px - 24px - 24px - 140px - 160px);
+    margin: auto;
+    padding: 12px 96px;
+
+    overflow: auto;
+
+    background-color: #fff;
+}
+
+#footer {
+    max-width: calc(1080px - (2 * 96px));
+    height: 160px;
+    margin: auto;
+    padding: 12px 96px;
+
+    background-color: #fff;
+}
+
+h1 {
+    font: 48px Georgia, serif;
+    text-align: center;
+    font: 48px Georgia, serif;
+    font-weight: 600;
+}
+
+#bg-canvas {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.tool {
+    height: 36px;
+    text-align: left;
+    background-color: #ebddda;
+    border-radius: 10px;
+    margin: 16px;
+    padding: 12px 24px;
+
+    cursor: pointer; 
+
+    display : flex;
+    align-items : center;
+
+    transition: background-color 0.15s ease-out;
+}
+.tool:hover {
+    background-color: #c0ac3f;
+    text-decoration: underline;
+}
+.tool:active {
+    background-color: #fff;
+}
+.tool > * {
+    margin: 0;
+}
+
+#play {
+    display: inline-block;
+
+    color: #000;
+    text-decoration: none;
+    cursor: pointer; 
+
+    transform: translateY(0);
+    transition: transform 0.2s ease-out;
+}
+
+#play:hover {
+    color: #43a29c;
+    transform: translateY(-2px);
+}
+
+#play:active {
+    color: #6cc7c0;
+    transform: translateY(5px);
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
