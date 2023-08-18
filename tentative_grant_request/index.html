@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <meta name="viewport" content="initial-scale=1.0">   
+        <title>SFU CSSS Tools</title>
+        <link rel="stylesheet" type="text/css" href="../main.css">
+        <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    </head>    
+    <body onload="onloadTentativeGrantRequest()">
+        <div id="header">
+            <p id="goback"><a href="../index.html" >&larr; go back</a></p>
+            <h1>Tentative Grant Request</h1>
+        </div>
+
+        <div id="content">
+            <br>
+            
+            <p>
+                This is an abridged version of the the SFSS Online Grant Submission Webform.
+            </p>
+            <br>
+
+            <h3 id="instructions">Instructions:</h3>
+            <ol>
+                <li>Fill out the form</li>
+                <br>
+                
+                <li>Send the resultant PDF to your treasurer</li>
+            </ol>
+            <br>
+
+            <h3 id="prerequisites">Prerequisites:</h3>
+            <ol>
+                <li><b>(<a href="https://sfss.ca/how-to-su/">SU</a> only)</b> Ensure that a motion for this grant has been made at a general meeting, and you have access to the meeting minutes</li>
+                <em class="comment">&nbsp;&nbsp;Format: &lt;name&gt; motions &lt;$x&gt; from core for a grant of up to &lt;$total&gt; for &lt;description&gt;</em> <br>
+                <br>
+
+                <li>Make sure the space / room has already been booked (this is not strictly necessary, but increases chances)</li>
+                <br>
+
+                <li>Ensure your grant request is reasonable, and at least roughly follows the SFSS <a href="https://sfss.ca/wp-content/uploads/2021/03/Funding_101_-_Condensed_Version_-_March_17_2021.pdf">Funding 101</a> Guidelines</li>
+                <br>
+                
+                <li>Ensure this form is filled out at least <br> <b>11 business days</b> (> 15 days) before your event for grants of <u>up to $1000</u>, and <br> <b>22 business days</b> (> 30 days) for grants <u>over $1000</u> </li>
+            </ol>
+            <br>
+
+            <br>
+            <em>Note: This form saves your responses as you input them!</em> &nbsp;
+            <button onclick="tentativeGrantRequest_ResetChanges()" style="width: 78px; height: 26px;">reset form</button>
+            <br>
+            <br>
+            <br>
+
+            <form class="webform">
+                <h3><span style="color: #a3b34e;" id="section-a">#</span> Section A: Plan</h3>
+                <hr>
+
+                <ol>
+                    <li>
+                        Is this an event or project?
+                        <br>
+                        <select id="ProjectType" name="ProjectType">
+                            <option value="" selected="selected">(Select One)</option>
+                            <option value="Project">Project</option>
+                            <option value="Event">Event</option>
+                        </select>
+                    </li>
+                    <br>
+                    
+                    <li>
+                        Name of Event / Project:
+                        <br>
+                        <input type="text" value="" id="ProjectName" name="ProjectName" style="width: 282px">
+                    </li>
+                    <br>
+
+                    <li>
+                        Event/Project Location:
+                        <br>
+                        <em class="comment">If on campus, list a specific building and room number, otherwise list the full venue name and address</em>
+                        <br>
+                        <input type="text" value="" id="ProjectLocation" name="ProjectLocation" style="width: 286px">
+                    </li>
+                    <br>
+
+                    <li>
+                        Has your booking been confirmed?
+                        <br>
+                        <select id="BookingConfirmed" name="BookingConfirmed">
+                            <option value="" selected="selected">(Select One)</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </li>
+                    <br>
+
+                    <li>
+                        Event Date & Time
+                        <br>
+                        <em class="comment">If this is a multi-day event, please provide all the dates and times of the event.</em>
+                        <br>
+
+                        <textarea id="EventDates" name="EventDates" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+
+                    <li>
+                        Please describe the proposed event / project <span style="color: #a3b34e;">(Max 500 words)</span>
+                        <br>
+                        <textarea id="EventDesc" name="EventDesc" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+
+                    <li>
+                        Is this a large scale event?
+                        <input class="checkbox" type="checkbox" id="largeScaleEvent" name="largeScaleEvent">
+                        
+                        <div id="largeScaleEventDesc" style="display: none;">
+                            <br>
+
+                            Please give a breakdown of your event/project in the form of an itinerary & link to any other supporting documents
+                            <br>
+
+                            <em class="comment">Ensure any google docs or sheets links have public view permissions</em>
+                            <br>
+
+                            <textarea id="EventItinerary" name="EventItinerary" style="width: 424px; height: 92px;"></textarea>
+                        </div>
+                    </li>
+                    <br>
+
+                    <li>
+                        How does this event/project align with the <a href="https://sfss.ca/about/what-is-the-sfss/#:~:text=of%20the%20Society.-,Mission%20Statement,-%3A">SFSS Mission</a> and your union mandate? <span style="color: #a3b34e;">(Max 250 words)</span>
+                        <br>
+                        <textarea id="EventAlignment" name="EventAlignment" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+
+                    <li>
+                        How will you make sure that your event is <a href="https://www.google.com/search?q=guidelines+for+running+environmentally+sustainable+events">environmentally sustainable</a>? <span style="color: #a3b34e;">(Max 200 words)</span>
+                        <br>
+                        <textarea id="EventSus" name="EventSus" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+
+                    <li>
+                        Will your event have guest speakers?
+                        <input class="checkbox" type="checkbox" id="guestSpeakers" name="guestSpeakers" onchange="updateGuestSpeakers()">
+                        
+                        <div id="guestSpeakersDesc" style="display: none;">
+                            <br>
+
+                            Please list the names of all guest speaker / event panelists, including full names, titles, and biographical links, if available
+                            <br>
+
+                            <textarea id="EventSpeakers" name="EventSpeakers" style="width: 424px; height: 92px;"></textarea>
+                        </div>
+                    </li>
+                    <br>
+
+                   <li>
+                        Is there anything else you would like the <a href="https://sfss.ca/wp-content/uploads/2018/10/2018-09-27-MSC-Clubs.pdf" href2="https://www.google.com/search?q=Member+Services+Union+Coordinators+SFSS">Member Services Union Coordinators</a> to know about your event/project? <span style="color: #a3b34e;">(Max 200 words)</span>
+                        <br>
+                        <textarea id="ExtraDesc" name="ExtraDesc" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+
+
+                    <!--
+                    <label for="fname">First name:</label><br>
+                    <input type="text" id="fname" name="fname"><br>
+                    <label for="lname">Last name:</label><br>
+                    <input type="text" id="lname" name="lname">
+                    -->
+
+                </ol>
+
+                <h3><span style="color: #6cc7c0;" id="section-a">#</span> Section B: Scope</h3>
+                <hr>
+
+                <ol>
+                    <li>
+                        Please predict how many of the following people will be attending the event: <br>
+
+                        <table>
+                            <tr>
+                                <td>Union Members</td>
+                                <td><input class="big-input" type="number" value="" id="UnionMembers" name="UnionMembers" style="width: 92px"></td>
+                                <td>people</td>
+                            </tr>
+                            <tr>
+                                <td>Non-Union Members</td>
+                                <td><input class="big-input" type="number" value="0" id="NonUnionMembers" name="NonUnionMembers" style="width: 92px"></td>
+                                <td>people <span class="comment">(must be SFU Undergraduates)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Staff / Faculty</td>
+                                <td><input class="big-input" type="number" value="0" id="Staff" name="Staff" style="width: 92px"></td>
+                                <td>people</td>
+                            </tr>
+                            <tr>
+                                <td>General Public</td>
+                                <td><input class="big-input" type="number" value="0" id="GeneralPublic" name="GeneralPublic" style="width: 92px"></td>
+                                <td>people</td>
+                            </tr>
+                            <tr>
+                                <td>Guest Speakers / Sponsors</td>
+                                <td><input class="big-input" type="number" value="0" id="Guests" name="Guests" style="width: 92px"></td>
+                                <td>people</td>
+                            </tr>
+                        </table>
+                    </li>
+                    <br>
+                
+                    <li>
+                        If you are collaborating on this event / project with any other groups <span style="color: #888;">(Clubs, SUs, or external third parties)</span> please list them below
+                        <br>
+                        <textarea id="CollaboratorList" name="CollaboratorList" style="width: 424px; height: 92px;">N/A</textarea>
+                    </li>
+                    <br>
+
+                    <li>
+                        If your SU has organized an event/project like this before, please describe how the past events went, highlighting any problems that occurred and what worked well <span style="color: #a3b34e;">(Max 150 words)</span>
+                        <br>
+                        <textarea id="PastOrganize" name="PastOrganize" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+                </ol>
+
+                <h3><span style="color: #ffb55c;" id="section-a">#</span> Section C: Revenue</h3>
+                <hr>
+
+                <ol>
+                    <li>
+                        Will your event have any revenue?
+                        <input class="checkbox" type="checkbox" id="eventRevenue" name="eventRevenue" onchange="updateEventRevenue()">
+                        
+                        <div id="eventRevenueDesc" style="display: none;">
+                            <br>
+
+                            Please give a detailed breakdown of your event's expected revenue sources. If applicable, please include how many tickets have been sold, and any sponsorships that have been obtained.
+                            <br>
+
+                            <textarea id="EventRevenue" name="EventRevenue" style="width: 424px; height: 92px;"></textarea>
+                            <br>
+                            <br>
+
+                            <div>
+                                What are you planning to do with your revenue?
+                                <br>
+
+                                &nbsp;<input type="radio" id="RevenuePlan0" name="RevenuePlan"> 
+                                <span style="margin: 8px;">Not applicable (no revenue for this event)</span>
+                                <br>
+                                
+                                &nbsp;<input type="radio" id="RevenuePlan1" name="RevenuePlan"> 
+                                <span style="margin: 8px;">Use all of it to cover expenses</span>
+                                <br>
+                            
+                                &nbsp;<input type="radio" id="RevenuePlan2" name="RevenuePlan">
+                                <span style="margin: 8px;">Donate all of it to charity</span>
+                                <br>
+                            
+                                &nbsp;<input type="radio" id="RevenuePlan3" name="RevenuePlan"> 
+                                <span style="margin: 8px;">Deposit it in the trust account to use for future events</span>
+                                <br>
+                                
+                                &nbsp;<input type="radio" id="RevenuePlan4" name="RevenuePlan"> 
+                                <span style="margin-left: 8px;">Other:</span> 
+                                <input class="big-input" type="text" value="" id="OtherInput" name="OtherInput" style="width: 350px">
+
+                                <!--<div id="revenue_plan_error" style="display: none"><span class="error">This is a required field.</span></div>-->
+                            </div>
+                        </div>
+                    </li>
+                    <br>
+                
+                    <li>
+                        Total Core Contribution <br>
+                        <em class="comment">The amount motioned from core must be at least 10% the total grant request amount</em> <br>
+
+                        $ <input type="number" value="" id="CoreContribution" name="CoreContribution" style="width: 92px">
+                    </li>
+                    <br>
+
+                    <li>
+                        Upload meeting minutes that include the motion approving the core contribution
+                        <input type="file" id="MeetingMinutes" name="MeetingMinutes">
+                    </li>
+                    <br>
+                </ol>
+
+                <h3><span style="color: #f2685b;" id="section-a">#</span> Section D: Expenses</h3>
+                <hr>
+
+                <ol>
+                    <li>
+                        Total Grant Request Amount <br>
+                        <em class="comment">This amount represents the maximum balance of the grant after being accepted, and includes the amount contributed from core</em> <br>
+
+                        $ <input type="number" value="" id="RequestAmount" name="RequestAmount" style="width: 92px">
+                        <br>
+                        <br>
+
+                        Please provide a breakdown of how the money is expected to be used and for what items / purposes
+                        <br>
+                        
+                        <em class="comment">ex: Pizza: $10.00 * 40 people = $400.00</em> 
+                        <br>
+                        
+                        <em class="comment">ex: SFU A/V: $83.00 * 2 rooms = $166.00</em>
+                        <br>
+
+                        <em class="comment">ex: Printing: $0.50 * 150 posters = $75.00</em>
+                        <br>
+
+                        <textarea id="MoneyUsage" name="MoneyUsage" style="width: 424px; height: 92px;"></textarea>
+                    </li>
+                    <br>
+                </ol>
+
+                <p style="display: block; text-align: center;">finally,</p>
+                <p style="display: block; text-align: center;">↓</p>
+                <br>
+
+                <button style="width: 300px; height: 48px; font-size: 16px; margin: 0 auto; display: block;" type="button">Generate Tentative Grant Request</button>
+                <br>
+                <br>
+
+            </form>
+        </div>
+
+        <div id="footer">
+            <p style="text-align: center;">
+                <em>Note: This form saves your responses as you input them!</em> &nbsp;
+
+                <button onclick="tentativeGrantRequest_ResetChanges()" style="width: 78px; height: 26px;">reset form</button>
+            </p>
+        </div>
+
+        <script src="../main.js"></script>
+    </body>
+</html>

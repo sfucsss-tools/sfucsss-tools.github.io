@@ -21,6 +21,10 @@ body {
 #header > h1 {
     margin-top: 72px;
 }
+#goback {
+    font-size: 1em;
+    margin-bottom: -42px;
+}
 
 #content {
     z-index: 10;
@@ -61,24 +65,29 @@ h1 {
 .tool {
     height: 36px;
     text-align: left;
-    background-color: #ebddda;
     border-radius: 10px;
     margin: 16px;
     padding: 12px 24px;
 
     cursor: pointer; 
 
-    display : flex;
-    align-items : center;
+    display: flex;
+    align-items: center;
 
-    transition: background-color 0.15s ease-out;
+    background-color: #ebddda;
+    color: #000;
+
+    transition: background-color 0.15s ease-out, color 0.15s ease-out;
 }
 .tool:hover {
-    background-color: #c0ac3f;
     text-decoration: underline;
+
+    background-color: #a3b34e;
+    color: #fff;
 }
 .tool:active {
     background-color: #fff;
+    color: #000;
 }
 .tool > * {
     margin: 0;
@@ -104,6 +113,42 @@ h1 {
     color: #6cc7c0;
     transform: translateY(5px);
 }
+
+ol li {
+    padding-left: 4px;
+}
+
+.webform > ol > li > input,select,textarea  {
+    padding: 8px 4px;
+    margin: 4px;
+    max-width: 100%;
+}
+.big-input  {
+    padding: 8px 4px;
+    margin: 4px;
+    max-width: 100%;
+}
+.webform > ol li {
+    padding-left: 20px;
+}
+.webform > ol li::marker {
+    padding: 20px;
+    font-weight: bold;
+}
+
+.checkbox {
+    transform: translateY(3px);
+    width: 1.5em;
+    height: 1.5em;
+}
+
+.comment {
+    font-size: 13px; 
+    color: #888;
+    margin-left: 0px !important;
+}
+
+/* --------------------- */
 
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */
