@@ -8,7 +8,17 @@
         <link rel="stylesheet" type="text/css" href="../main.css">
         <link href="https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic" rel="stylesheet" type="text/css">
-    </head>    
+        
+        <!--Depends-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.5/purify.min.js" integrity="sha512-KqUc2WMPF/gxte9xVjVE4TIt1LMUTidO3BrcItFg0Ro24I7pGNzgcXdnWdezNY+8T0/JEmdC79MuwYn+8UdOqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>    
+        
+        <!--JSPDF CDN-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+        <!-- pdf-lib -->
+        <script src="https://unpkg.com/pdf-lib@1.4.0/dist/pdf-lib.min.js"></script>
+    </head>
     <body onload="onloadTentativeGrantRequest()">
         <div id="header">
             <p id="goback"><a href="../index.html" >&larr; go back</a></p>
@@ -56,7 +66,7 @@
             <br>
 
             <form class="webform">
-                <h3><span style="color: #a3b34e;" id="section-a">#</span> Section A: Plan</h3>
+                <h3><span style="color: #a3b34e;" id="sectionA">#</span> Section A: Plan</h3>
                 <hr>
 
                 <ol>
@@ -70,7 +80,7 @@
                         </select>
                     </li>
                     <br>
-                    
+
                     <li>
                         Name of Event / Project:
                         <br>
@@ -179,7 +189,7 @@
 
                 </ol>
 
-                <h3><span style="color: #6cc7c0;" id="section-a">#</span> Section B: Scope</h3>
+                <h3><span style="color: #6cc7c0;" id="sectionB">#</span> Section B: Scope</h3>
                 <hr>
 
                 <ol>
@@ -231,7 +241,7 @@
                     <br>
                 </ol>
 
-                <h3><span style="color: #ffb55c;" id="section-a">#</span> Section C: Revenue</h3>
+                <h3><span style="color: #ffb55c;" id="sectionC">#</span> Section C: Revenue</h3>
                 <hr>
 
                 <ol>
@@ -288,13 +298,23 @@
                     <br>
 
                     <li>
-                        Upload meeting minutes that include the motion approving the core contribution
+                        Upload <a href="https://github.com/CSSS/minutes/tree/master">meeting minutes</a> that include the motion approving the core contribution 
+                        <br>
+                        
+                        <em class="comment">Warning: Refreshing the page will forget this uploaded file</em> 
+                        <br>
+                        
                         <input type="file" id="MeetingMinutes" name="MeetingMinutes">
+                        <br>
+                        <br>
+
+                        What is the motion number that approves the core contribution? <br>
+                        # <input type="number" id="MotionNumber" name="MotionNumber" style="width: 64px">
                     </li>
                     <br>
                 </ol>
 
-                <h3><span style="color: #f2685b;" id="section-a">#</span> Section D: Expenses</h3>
+                <h3><span style="color: #f2685b;" id="sectionD">#</span> Section D: Expenses</h3>
                 <hr>
 
                 <ol>
@@ -323,11 +343,11 @@
                     <br>
                 </ol>
 
-                <p style="display: block; text-align: center;">finally,</p>
+                <p style="display: block; text-align: center;">and finally,</p>
                 <p style="display: block; text-align: center;">↓</p>
                 <br>
 
-                <button style="width: 300px; height: 48px; font-size: 16px; margin: 0 auto; display: block;" type="button">Generate Tentative Grant Request</button>
+                <button id="submit" style="width: 300px; height: 48px; font-size: 16px; margin: 0 auto; display: block;" type="button">Generate Tentative Grant Request</button>
                 <br>
                 <br>
 

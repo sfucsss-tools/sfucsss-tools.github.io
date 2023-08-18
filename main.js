@@ -29,8 +29,13 @@ function onloadMain() {
     loadMusic();
 }
 
+// TODO: move this stuff to its own file eventually
+// saviour!
+const { jsPDF } = "jspdf" in window ? window.jspdf : null;
+const { PDFDocument } = "PDFLib" in window ? window.PDFLib : null;
 function onloadTentativeGrantRequest() {
     document.getElementById("largeScaleEvent").addEventListener("change", updateLargeScaleEvent);
+    document.getElementById("submit").addEventListener("click", generateTentativeGrantRequest);
 
     tentativeGrantRequest_LoadChanges();
     tentativeGrantRequest_TrackChanges();
@@ -101,7 +106,6 @@ function musicTime() {
     } else {
         for (let i = 0; i < MAX; i++) {
             setTimeout(() => { 
-                console.log(music.volume); 
                 if (music.volume <= (1 / (MAX-1))) {
                     music.volume *= 0.6;
                 } else {
@@ -125,7 +129,6 @@ function updateLargeScaleEvent() {
         document.getElementById("largeScaleEventDesc").style.display = "block";
     }
 }
-
 function updateGuestSpeakers() {
     if (document.getElementById("guestSpeakersDesc").style.display == "block") {
         document.getElementById("guestSpeakersDesc").style.display = "none";
@@ -133,7 +136,6 @@ function updateGuestSpeakers() {
         document.getElementById("guestSpeakersDesc").style.display = "block";
     }
 }
-
 function updateEventRevenue() {
     if (document.getElementById("eventRevenueDesc").style.display == "block") {
         document.getElementById("eventRevenueDesc").style.display = "none";
@@ -169,7 +171,8 @@ var formItemIds = [
     "EventRevenue",
     "OtherInput",
     "CoreContribution",
-    //"MeetingMinutes",
+    "MeetingMinutes",
+    "MotionNumber",
 
     "RequestAmount",
     "MoneyUsage",
@@ -185,6 +188,9 @@ var checkboxFormItemIds = [
     "RevenuePlan3",
     "RevenuePlan4",
 ];
+var sectionIds = [
+    "sectionA", "sectionB", "sectionC", "sectionD"
+]
 
 function tentativeGrantRequest_ResetChanges() {
     if (typeof(Storage) === "undefined") {
@@ -253,4 +259,96 @@ function tentativeGrantRequest_TrackChanges() {
     if (document.getElementById("eventRevenue").checked != "") {
         updateEventRevenue();
     }
+}
+
+function generateTentativeGrantRequest(_event) {    
+    // validate meeting minutes file is a pdf:
+
+    // TODO: add a checkbox to bypass this & just not attach a file
+    if (document.getElementById("MeetingMinutes").value == "") {
+        alert("no meeting minutes uploaded, grant request canceled");
+        return;
+    } else if (!document.getElementById("MeetingMinutes").files[0].name.endsWith('.pdf')) {
+        alert("invalid file uploaded; must be .pdf");
+        return;
+    }
+
+    // make a copy of the DOM to eventually generate a pdf with
+    let newBody = document.querySelector("#content").cloneNode(true);
+    newBody.style.width = "650px"; 
+    newBody.style.margin = "0"; 
+    const PADDING_AMOUNT = 64;
+    newBody.style.paddingLeft = PADDING_AMOUNT + "px"; 
+    newBody.style.paddingRight = PADDING_AMOUNT + "px"; 
+
+    {
+        // clean up unnecessary description & formatting
+        for (let i = 0; i < 15; i++)
+            newBody.children[0].remove();
+        for (let i = 0; i < 6; i++)
+            newBody.children[0].children[newBody.children[0].children.length - 1].remove();
+        
+        for (let i = 0; i < 16; i++)
+            newBody.childNodes[0].remove();
+
+        formItemIds.forEach((id) => {
+            let value = document.getElementById(id).value;
+            newBody.querySelector("#" + id).outerHTML = "<p style='background-color:#ffeda6; padding: 10px; white-space: pre-wrap; display: inline-block; width: calc(100% - 36px);'><b>" + value + " </b></p>";
+        });
+
+        sectionIds.forEach((id) => {
+            // TODO: using sectionIds, split the pdf into 4 documents & combine them with page breaks after each major section
+        });
+    }
+
+    const PDF_MARGIN_W = 8;
+    var doc = new jsPDF({
+        orientation: 'p',
+        unit: 'mm',
+        format: [210, 297],
+    });
+    let options = {
+        callback: (doc) => {
+            let mergeMeetingMinutes = async (basePDF) => {
+                let meetingMinutesPDFArrayBuffer = await document.getElementById("MeetingMinutes").files[0].arrayBuffer();
+                let pdfList = [basePDF, meetingMinutesPDFArrayBuffer]
+                
+                const mergedPdf = await PDFDocument.create();
+                const actions = pdfList.map(async pdfBuffer => {
+                    const pdf = await PDFDocument.load(pdfBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => {
+                        // console.log('page', page.getWidth(), page.getHeight());
+                        // page.setWidth(210);
+                        mergedPdf.addPage(page);
+                    });
+                });
+                await Promise.all(actions);
+                const mergedPdfFile = await mergedPdf.save();
+                return mergedPdfFile;
+            };
+
+            // download file
+            function saveByteArray(name, byte) {
+                var blob = new Blob([byte], {type: "application/pdf"});
+                var link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = name;
+                link.click();
+            };
+
+            var arrayBuffer = doc.output("arraybuffer");
+            mergeMeetingMinutes(arrayBuffer).then((mergedPDFArrayBuffer) => {
+                let name = "tentativeGrantRequest_" + document.getElementById("ProjectName").value + ".pdf";
+                saveByteArray(name, mergedPDFArrayBuffer);
+            });
+        },
+        autoPaging: 'text',
+        margin: [12, PDF_MARGIN_W, 15, PDF_MARGIN_W],
+        html2canvas: {
+            // https://html2canvas.hertzen.com/configuration
+            scale: (210 - 2 * PDF_MARGIN_W) / (650 + 2 * PADDING_AMOUNT),
+        },
+    };
+    doc.html(newBody, options);
 }
